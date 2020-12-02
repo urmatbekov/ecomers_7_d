@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "orders",
     "products",
     "easy_thumbnails",
-    "django_cleanup"
+    "django_cleanup",
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 ROOT_URLCONF = 'ecomers_t7.urls'
 

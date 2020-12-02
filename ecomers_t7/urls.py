@@ -22,7 +22,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+    path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
+    path('product/', include("products.urls"))
 ]
 
 if settings.DEBUG:

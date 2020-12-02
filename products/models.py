@@ -21,7 +21,8 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=20, decimal_places=2)
     active = models.BooleanField(default=True)
     categories = models.ManyToManyField('Category', blank=True)
-    default = models.ForeignKey('Category',on_delete=models.SET_NULL, related_name='default_category', null=True, blank=True)
+    default = models.ForeignKey('Category', on_delete=models.SET_NULL, related_name='default_category', null=True,
+                                blank=True)
 
     objects = ProductManager()
 
@@ -31,16 +32,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
-
-
-
-    def get_html_price(self):
-        if self.variation_set.first().sale_price is not None:
-            html_price = '<h3 id="price">%s <small class="org-price" id="price"> %s</small></h3>' % (
-            self.variation_set.first().sale_price, self.variation_set.first().price)
-        else:
-            html_price = '<h3 id="price">%s</h3>' % (self.variation_set.first().price)
-        return mark_safe(html_price)
 
     def get_img_url(self):
         img = self.productimage_set.first()
@@ -52,7 +43,7 @@ class Product(models.Model):
 
 class Variation(models.Model):
     # TODO: Define fields here
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=20, decimal_places=2)
     sale_price = models.DecimalField(max_digits=20, decimal_places=2, null=True, blank=True)
@@ -75,18 +66,10 @@ class Variation(models.Model):
     def get_html_price(self):
         if self.sale_price is not None:
             html_price = '<h3 id="price">%s <small class="org-price" id="price"> %s</small></h3>' % (
-            self.sale_price, self.price)
+                self.sale_price, self.price)
         else:
             html_price = '<h3 id="price">%s</h3>' % (self.price)
         return mark_safe(html_price)
-
-
-
-    def remove_from_cart(self):
-        return '%s?item=%s&delete=true' % (reverse("cart"), self.id)
-
-    def add_to_cart(self):
-        return '%s?item=%s' % (reverse("cart"), self.id)
 
     def get_title(self):
         return '%s - %s' % (self.product.title, self.title)
@@ -116,7 +99,7 @@ def image_upload_products(instance, filename):
 
 class ProductImage(models.Model):
     # TODO: Define fields here
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=image_upload_products, )
 
     class Meta:
@@ -143,8 +126,6 @@ class Category(models.Model):
         return self.title
 
 
-
-
 def image_upload_products_featured(instance, filename):
     title = instance.product.title
     slug = slugify(title)
@@ -155,7 +136,7 @@ def image_upload_products_featured(instance, filename):
 
 class ProductFeatured(models.Model):
     # TODO: Define fields here
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=image_upload_products_featured, )
     title = models.CharField(blank=True, null=True, max_length=100)
     text = models.TextField(blank=True, null=True, )

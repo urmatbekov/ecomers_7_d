@@ -12,8 +12,16 @@ Class-based views
 Including another URLconf
     1. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
-from products import views
-urlpatterns = [
+from django.urls import include, path
+from rest_framework import routers
 
+from products.views import ProductViewSet
+
+router = routers.DefaultRouter()
+router.register("", ProductViewSet)
+
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
+urlpatterns = [
+    path('', include(router.urls)),
 ]
