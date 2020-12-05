@@ -27,7 +27,7 @@ try:
 except ImportError:
     from ecomers_t7.settings_dev import *
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["ecommerce-7-api.itpark.edu.kg","localhost","127.0.0.1"]
 
 # Application definition
 
