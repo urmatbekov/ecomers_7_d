@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 try:
-    from ecomers_t7.settings_dev import *
-except ImportError:
     from ecomers_t7.settings_prod import *
+except ImportError:
+    from ecomers_t7.settings_dev import *
 
 ALLOWED_HOSTS = []
 
