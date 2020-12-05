@@ -1,7 +1,6 @@
 from django.db.models.signals import post_save
 from django.utils.text import slugify
 from django.db import models
-from django.utils import timezone
 from django.utils.html import mark_safe
 
 
@@ -90,11 +89,7 @@ post_save.connect(product_post_saved_receiver, sender=Product)
 
 
 def image_upload_products(instance, filename):
-    title = instance.product.title
-    slug = slugify(title)
-    end = filename.split('.')[1]
-    new_name = "%s.%s" % (slug, end)
-    return "products/%s/%s" % (slug, new_name)
+    return "products/%s/%s" % (instance.product.id, filename)
 
 
 class ProductImage(models.Model):
