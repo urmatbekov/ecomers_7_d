@@ -8,6 +8,7 @@ node_modules/
 dist/
 venv/
 ecomers_t7/settings_prod.py
+.env
 
 # Compiled Java class files
 *.class
